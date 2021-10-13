@@ -98,4 +98,21 @@ exports.loadUsers = function () {
     })
   
   }
+
+  exports.insertTicket = function (ticket) {
+    return new Promise((resolve, reject) => {
+      const sql = "INSERT INTO TICKETS(Value,UserID,ServiceID,Date,State) VALUES (?,?,?,?,?)";
+      //ID is not needed. It's added by the insert operation
+      db.run(sql, [ticket.value,ticket.userid,ticket.serviceid,ticket.date,ticket.state], function (err) {
+        if (err) {
+          console.log(err);
+          reject(err);
+        }
+        else {
+          console.log('Added successfully');
+          resolve(null);
+        }
+      })
+    })
+  }
   

@@ -82,6 +82,15 @@ app.get('/api/users/:id', (req, res) => {
     .catch((err) => res.status(503).json(dbErrorObj));
 });
 
+// POST /rentals
+// Request body: object describing a Ticket (Value,UserID,ServiceID,Date,State) 
+// Response body: empty 
+app.post('/api/ticket', (req, res) => {
+  const ticket = req.body;
+  dao.insertTicket(ticket).then((result) => res.end())
+    .catch((err) => res.status(503).json(dbErrorObj));
+})
+
 
 
 app.listen(port, () => console.log(`Server app listening at http://localhost:${port}`));
