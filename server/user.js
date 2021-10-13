@@ -1,7 +1,7 @@
 class User {
-    constructor(id,name,surname,password,type){
+    constructor(ID,name,surname,password,type){
         if(id){
-            this.id =id;
+            this.id = id;
         }
         this.name = name;
         this.surname = surname;

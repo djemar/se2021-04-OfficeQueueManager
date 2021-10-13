@@ -60,8 +60,27 @@ app.get('/api/services', (req, res) => {
       .catch((err) => res.status(503).json(dbErrorObj));
   })
   
-  // REST API endpoints
 
+// To return a better object in case of errors
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json(authErrorObj);
+  }
+});
+// REST API endpoints
+// Resources: Users, Tickets, Services
+
+
+// GET /users/<user_id>
+// Parameter: User id
+// Response body: object describing a User
+// Error: if the user does not exist, returns {}
+app.get('/api/users/:id', (req, res) => {
+  console.log(req.params.id);
+  dao.findUser(req.params.id)
+    .then((user) => res.json(user))
+    .catch((err) => res.status(503).json(dbErrorObj));
+});
 
 
 

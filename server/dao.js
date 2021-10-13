@@ -80,4 +80,22 @@ exports.loadUsers = function () {
     })
   }
 
+
+  exports.findUser = function (id) {
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT * from USERS where ID = ?';
+      db.all(sql, [id], (err, row) => {
+        if (err)
+          reject(err);
+        else {
+          if (row == undefined) {
+            console.log("Row undefined");
+            resolve({});
+          }
+          resolve(row);
+        }
+      })
+    })
+  
+  }
   
