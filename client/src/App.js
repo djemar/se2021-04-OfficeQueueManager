@@ -159,7 +159,6 @@ function App() {
                       Hi! Login!
                     </Button>
 
-
                   <LoginModal
                     login={login}
                     show={show}
@@ -174,7 +173,6 @@ function App() {
         ></Route>
       </Switch>
     </Router>
-
   );
 }
 

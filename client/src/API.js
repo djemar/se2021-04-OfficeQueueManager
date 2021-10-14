@@ -15,7 +15,6 @@ async function login(credentials) {
     },
     body: jsonCred,
   });
-
   if (response.ok) {
     const officer = await response.json();
     return officer;
