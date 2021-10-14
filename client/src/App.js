@@ -1,23 +1,17 @@
 import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import QueueSet from './QueueSet.js';
+import { useState } from 'react';
 
 function App() {
+  let [counter, setCounter] = useState(2);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <strong>Queues branch</strong>
+      <h1>Counter: {counter}</h1>
+      <QueueSet counter={counter} user={0} />
     </div>
   );
 }
