@@ -50,7 +50,7 @@ exports.getOfficerById = (id) => {
       else if (row === undefined) resolve({ error: "User not found." });
       else {
         // by default, the local strategy looks for "username"
-        const user = { id: row.id, username: row.email, name: row.name };
+        const user = { id: row.ID, username: row.Email, name: row.Name };
         resolve(user);
       }
     });
