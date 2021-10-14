@@ -1,7 +1,7 @@
-const User = require('../user');
+const User = require("../user");
 
-test('create new user', () => {
-    const user = new User(1, "Luke", "Skywalker", "J3d1", "master");
+test("create new user", () => {
+  const user = new User(1, "Luke", "Skywalker", "J3d1", "master");
   expect(user.name).toBe("Luke");
 });
 
