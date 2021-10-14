@@ -7,8 +7,8 @@ import axios from 'axios';
 const BASEURL = '/api';
 
 async function login(credentials) {
+  console.log(credentials);
   let jsonCred = JSON.stringify(credentials);
-  console.log(jsonCred);
   let response = await fetch(BASEURL + '/login', {
     method: 'POST',
     headers: {
@@ -16,6 +16,7 @@ async function login(credentials) {
     },
     body: jsonCred,
   });
+
   if (response.ok) {
     const officer = await response.json();
     return officer;
