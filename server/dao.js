@@ -11,6 +11,7 @@ const moment = require("moment");
 // DAO module for accessing courses and exams
 
 // Password are made with bcrypt
+// officer email: s286329@studenti.polito.it
 // current officer has password: teamSE04
 // https://www.browserling.com/tools/bcrypt
 const sqlite = require("sqlite3");

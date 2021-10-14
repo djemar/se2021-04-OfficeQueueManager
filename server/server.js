@@ -95,6 +95,7 @@ app.post(
   "/api/login",
   [check("email").isEmail(), check("password").isString()],
   function (req, res, next) {
+    console.log("uwu");
     passport.authenticate("local", (err, user, info) => {
       if (err) return next(err);
 
