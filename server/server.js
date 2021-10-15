@@ -151,6 +151,18 @@ app.get("/api/tickets", (req, res) => {
     .catch((err) => res.status(503).json(dbErrorObj));
 });
 
+// GET /ticketsbyservices
+// Request body: empty
+// Response body: Array of tickets grouped by services
+// Errors: none
+// Don't need authentication
+app.get("/api/ticketsbyservices", (req, res) => {
+  dao
+    .loadTicketsByService()
+    .then((tickets) => res.json(tickets))
+    .catch((err) => res.status(503).json(dbErrorObj));
+});
+
 // GET /services
 // Request body: empty
 // Response body: Array of services
