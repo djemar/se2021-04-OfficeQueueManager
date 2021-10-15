@@ -1,10 +1,17 @@
 const dao = require("../dao");
 
 // async/await can be used.
-it("getOfficerById", async () => {
+it("getOfficerById - ok", async () => {
   expect.assertions(1);
   const data = await dao.getOfficerById(1);
   expect(data.username).toEqual("s286329@studenti.polito.it");
+});
+
+it("getOfficerById - not ok", async () => {
+  expect.assertions(2);
+  const data = await dao.getOfficerById(-1);
+  expect(data.username).toEqual(undefined);
+  expect(data.error).toEqual("User not found.");
 });
 
 it("loadUsers", async () => {
