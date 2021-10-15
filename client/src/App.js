@@ -46,7 +46,7 @@ function App() {
         setLoggedIn(true);
         setName(userInfo);
       } catch (err) {
-        console.error(err.error);
+        console.log(err.error);
       }
     };
     checkAuth();
@@ -126,7 +126,7 @@ function App() {
                     show={show}
                     setShow={setShow}
                     name={name}
-                    setName={setName()}
+                    setName={setName}
                   ></LoginModal>
                 </div>
               )}
