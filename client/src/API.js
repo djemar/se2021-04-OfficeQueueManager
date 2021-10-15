@@ -43,6 +43,18 @@ async function getOfficerInfo() {
   }
 }
 
-const API = { login, logout, getOfficerInfo };
+async function getTicketsByServiceId() {
+  const response = await fetch(BASEURL + '/ticketsbyservices');
+  const tickets = await response.json();
+  if (response.ok) {
+    console.log(tickets);
+    return tickets;
+  } else {
+    console.log('Errore');
+    throw tickets; // an object with the error coming from the server
+  }
+}
+
+const API = { login, logout, getOfficerInfo, getTicketsByServiceId };
 
 export default API;
