@@ -72,7 +72,7 @@ describe('Login', () => {
   });
 
   it('right values , officer found', async () => {
-    fetch.mockResponseOnce('Mattia');
+    fetch.mockResponseOnce(JSON.stringify('Mattia'));
     const email = 's286329@studenti.polito.it';
     const password = 'teamSE04';
     const credentials = { email, password };
