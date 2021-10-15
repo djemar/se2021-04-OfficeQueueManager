@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 /*
 	API.js contains all the API calls and the methods that communicate with the backend.
 */
