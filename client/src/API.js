@@ -7,6 +7,7 @@ const BASEURL = '/api';
 async function login(credentials) {
   console.log(credentials);
   let jsonCred = JSON.stringify(credentials);
+  console.log(jsonCred);
   let response = await fetch(BASEURL + '/login', {
     method: 'POST',
     headers: {
@@ -34,11 +35,11 @@ async function logout() {
 
 async function getOfficerInfo() {
   const response = await fetch(BASEURL + '/login/current');
-  const userInfo = await response.json();
+  const officerInfo = await response.json();
   if (response.ok) {
-    return userInfo;
+    return officerInfo;
   } else {
-    throw userInfo; // an object with the error coming from the server
+    throw officerInfo; // an object with the error coming from the server
   }
 }
 

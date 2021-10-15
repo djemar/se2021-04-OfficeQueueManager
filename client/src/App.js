@@ -13,6 +13,8 @@ import {
   Link,
 } from 'react-router-dom';
 
+let arr = ['Pizza', 'Pasta', 'Mozzarella'];
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [name, setName] = useState('');
@@ -42,9 +44,9 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        let userInfo = await API.getAdminInfo();
+        let officerInfo = await API.getOfficerInfo();
         setLoggedIn(true);
-        setName(userInfo);
+        setName(officerInfo);
       } catch (err) {
         console.log(err.error);
       }

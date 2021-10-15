@@ -87,13 +87,41 @@ exports.loadTickets = function () {
         console.log("ERROR!");
         return;
       }
+
       if (rows.length === 0) {
         reject(null);
         console.log("0 ROWS!");
         return;
       }
+
       const tickets = rows;
       resolve(tickets);
+      return;
+    });
+  });
+};
+
+exports.loadTicketsByService = function () {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT *  FROM TICKETS";
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        reject(err);
+        console.log("ERROR!");
+        return;
+      }
+
+      if (rows.length === 0) {
+        reject(null);
+        console.log("0 ROWS!");
+        return;
+      }
+      let obj = [];
+      obj = rows.reduce((acc, currVal) => {
+        acc[currVal.ServiceID] = [...(acc[currVal.ServiceID] || []), currVal];
+        return acc;
+      }, {});
+      resolve(obj);
       return;
     });
   });
