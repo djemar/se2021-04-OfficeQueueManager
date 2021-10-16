@@ -41,10 +41,7 @@ The server will be opened on http://localhost:3001
     - Response parameters : none
 - GET `/api/services`
     - Request parameters : none
-    - Response parameters : none
-- GET `/api/users/:id`
-    - Request parameters : user's id
-    - Response parameters : object describing the user 
+    - Response parameters : none 
 - POST `/api/ticket`
     - Request parameters : object describing a ticket
     - Response parameters : none
