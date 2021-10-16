@@ -55,6 +55,61 @@ async function getTicketsByServiceId() {
   }
 }
 
-const API = { login, logout, getOfficerInfo, getTicketsByServiceId };
+async function getUsers() {
+  const response = await fetch(BASEURL + '/users');
+  const users = await response.json();
+  if (response.ok) {
+    return users;
+  } else {
+    console.log('Errore');
+    throw users; // an object with the error coming from the server
+  }
+}
+
+async function getTickets() {
+  const response = await fetch(BASEURL + '/tickets');
+  const tickets = await response.json();
+  if (response.ok) {
+    return tickets;
+  } else {
+    console.log('Errore');
+    throw tickets; // an object with the error coming from the server
+  }
+}
+
+async function getServices() {
+  const response = await fetch(BASEURL + '/services');
+  const services = await response.json();
+  if (response.ok) {
+    return services;
+  } else {
+    console.log('Errore');
+    throw services; // an object with the error coming from the server
+  }
+}
+
+async function addTicket(ticket) {
+  return new Promise((resolve, reject) => {
+      fetch(baseURL + '/ticket', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(ticket)
+      }).then((response) => {
+          if (response.ok) {
+              resolve(null);
+          } else {
+              //analyze the cause of error
+              response.json()
+                  .then((obj) => { reject(obj) })       //error message in the response body
+                  .catch((err) => { reject({ errors: [{ param: "Application", masg: "Cannot parse server response" }] }) });
+          }
+      }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) });
+  })
+}
+
+
+const API = { login, logout, getOfficerInfo, getTicketsByServiceId, getUsers, getTickets, getServices, addTicket };
 
 export default API;

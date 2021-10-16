@@ -188,6 +188,7 @@ app.use(function (err, req, res, next) {
 // Parameter: User id
 // Response body: object describing a User
 // Error: if the user does not exist, returns {}
+// Used only for testing purpose
 app.get("/api/users/:id", (req, res) => {
   console.log(req.params.id);
   dao
@@ -196,7 +197,7 @@ app.get("/api/users/:id", (req, res) => {
     .catch((err) => res.status(503).json(dbErrorObj));
 });
 
-// POST /rentals
+// POST /ticket
 // Request body: object describing a Ticket (Value,UserID,ServiceID,Date,State)
 // Response body: empty
 app.post("/api/ticket", (req, res) => {
