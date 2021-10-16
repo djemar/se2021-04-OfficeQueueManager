@@ -2,8 +2,6 @@ import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import QueueSet from './QueueSet.js';
-import { useState } from 'react';
-import { Container } from 'react-bootstrap';
 
 import { useState, useEffect } from 'react';
 import API from './API';
@@ -24,22 +22,23 @@ function App() {
   const [name, setName] = useState('');
   const [dirty, setDirty] = useState(true);
   const [show, setShow] = useState(false);
-  let [counter, setCounter] = useState(2);
-  let [user, setUser] = useState(0);
-  let [userTicket, setUserTicket] = useState(-1);
-  let [loadingTicket, setLoadingTicket] = useState(true);
-  let [mainHead, setMainHead] = useState(0);
-  let [mainTail, setMainTail] = useState(0);
+  const [counter, setCounter] = useState(2);
+  const [user, setUser] = useState(0); // 0 = user, 1 = officer, 2 = manager
+  const [userTicket, setUserTicket] = useState(-1);
+  const [loadingTicket, setLoadingTicket] = useState(true);
+  const [mainHead, setMainHead] = useState(1);
+  const [mainTail, setMainTail] = useState(5);
 
   let pairings = []; // value in position i means that the i-th ticket is associated to the indicated service
 
   const login = async credentials => {
     try {
       const officerInfo = await API.login(credentials);
-      console.log(officerInfo);
       setLoggedIn(true);
       setDirty(true);
       setName(officerInfo);
+      setUser(1); // In the final project it will be settled wether it's a manager or an officer.
+      // Right now we always set it to Officer for simplicity
       return true;
     } catch (err) {
       alert(err);
@@ -51,6 +50,7 @@ function App() {
     await API.logout();
     setLoggedIn(false);
     setName('');
+    setUser(0);
   };
 
   useEffect(() => {
@@ -74,30 +74,36 @@ function App() {
           render={() =>
             loggedIn ? (
               <div className="App">
-                <header className="App-header">
-                  <h1>Benvenuto {name}!</h1>
-                  <img src={logo} className="App-logo" alt="logo" />
-                  <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                  </p>
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      logout();
-                    }}
-                  >
-                    Logout
+                <h1>Queue Management System</h1>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Logout
+                </Button>
+                <hr />
+                <h1>Welcome {name}!</h1> <hr />
+                <Container fluid>
+                  <h1>Working at counter {counter}.</h1>
+                  <Button variant="warning" size="lg">
+                    Serve the next client.
                   </Button>
-
-                  <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Learn React
-                  </a>
-                </header>
+                </Container>
+                <hr />
+                <QueueSet
+                  counter={counter}
+                  user={user}
+                  userTicket={userTicket}
+                  setUserTicket={setUserTicket}
+                  setLoadingTicket={setLoadingTicket}
+                  mainHead={mainHead}
+                  setMainHead={setMainHead}
+                  mainTail={mainTail}
+                  setMainTail={setMainTail}
+                  pairings={pairings}
+                />
               </div>
             ) : (
               <Redirect to="/" />
@@ -111,53 +117,59 @@ function App() {
               {loggedIn ? (
                 <Redirect path="/" to="/officer" />
               ) : (
-              
-    <div className="App">
-    <strong>Queues branch</strong>
-    {!user ? (
-      <>
-        <h1>Counter: {counter}</h1>
-        <div>
-          {userTicket !== -1 ? (
-            !loadingTicket ? (
-              <Container fluid>
-                <h1>
-                  Your ticket number is: <strong>{userTicket}</strong>
-                </h1>
-              </Container>
-            ) : (
-              <div />
-            )
-          ) : (
-            <div />
-          )}
-        </div>
-      </>
-    ) : (
-      <div />
-    )}
-    <QueueSet
-      counter={counter}
-      user={user}
-      userTicket={userTicket}
-      setUserTicket={setUserTicket}
-      setLoadingTicket={setLoadingTicket}
-      mainHead={mainHead}
-      setMainHead={setMainHead}
-      mainTail={mainTail}
-      setMainTail={setMainTail}
-      pairings={pairings}
-    />
-
-
+                <div className="App">
+                  <h1>
+                    Queue Management System <br />
                     <Button
                       variant="success"
                       onClick={() => {
                         setShow(true);
                       }}
                     >
-                      Hi! Login!
+                      Login
                     </Button>
+                  </h1>
+                  <hr />
+                  <strong>Queues branch</strong>
+                  {!user ? (
+                    <>
+                      <h1>Counter: {counter}</h1>
+                      <div>
+                        {userTicket !== -1 ? (
+                          !loadingTicket ? (
+                            <Container fluid>
+                              <h3>
+                                Your ticket number is:{' '}
+                                <strong>{userTicket}</strong>
+                                <br />
+                                The current ticket number being served is:{' '}
+                                <strong>{mainHead}</strong>
+                                <hr />
+                              </h3>
+                            </Container>
+                          ) : (
+                            <div />
+                          )
+                        ) : (
+                          <div />
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <div />
+                  )}
+                  <QueueSet
+                    counter={counter}
+                    user={user}
+                    userTicket={userTicket}
+                    setUserTicket={setUserTicket}
+                    setLoadingTicket={setLoadingTicket}
+                    mainHead={mainHead}
+                    setMainHead={setMainHead}
+                    mainTail={mainTail}
+                    setMainTail={setMainTail}
+                    pairings={pairings}
+                  />
 
                   <LoginModal
                     login={login}

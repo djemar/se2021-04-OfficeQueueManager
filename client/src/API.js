@@ -5,9 +5,7 @@
 const BASEURL = '/api';
 
 async function login(credentials) {
-  console.log(credentials);
   let jsonCred = JSON.stringify(credentials);
-  console.log(jsonCred);
   let response = await fetch(BASEURL + '/login', {
     method: 'POST',
     headers: {
@@ -77,6 +75,7 @@ async function getTickets() {
 }
 
 async function getServices() {
+  // todo we need a post request with a counter number in order to retrive all the services?
   const response = await fetch(BASEURL + '/services');
   const services = await response.json();
   if (response.ok) {
@@ -89,26 +88,50 @@ async function getServices() {
 
 async function addTicket(ticket) {
   return new Promise((resolve, reject) => {
-      fetch(baseURL + '/ticket', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(ticket)
-      }).then((response) => {
-          if (response.ok) {
-              resolve(null);
-          } else {
-              //analyze the cause of error
-              response.json()
-                  .then((obj) => { reject(obj) })       //error message in the response body
-                  .catch((err) => { reject({ errors: [{ param: "Application", masg: "Cannot parse server response" }] }) });
-          }
-      }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) });
-  })
+    fetch(BASEURL + '/ticket', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(ticket),
+    })
+      .then(response => {
+        if (response.ok) {
+          resolve(null);
+        } else {
+          //analyze the cause of error
+          response
+            .json()
+            .then(obj => {
+              reject(obj);
+            }) //error message in the response body
+            .catch(err => {
+              reject({
+                errors: [
+                  {
+                    param: 'Application',
+                    masg: 'Cannot parse server response',
+                  },
+                ],
+              });
+            });
+        }
+      })
+      .catch(err => {
+        reject({ errors: [{ param: 'Server', msg: 'Cannot communicate' }] });
+      });
+  });
 }
 
-
-const API = { login, logout, getOfficerInfo, getTicketsByServiceId, getUsers, getTickets, getServices, addTicket };
+const API = {
+  login,
+  logout,
+  getOfficerInfo,
+  getTicketsByServiceId,
+  getUsers,
+  getTickets,
+  getServices,
+  addTicket,
+};
 
 export default API;

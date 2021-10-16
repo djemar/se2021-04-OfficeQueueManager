@@ -37,7 +37,7 @@ function Queue(props) {
 
   return (
     <>
-      <h1>Service number: {props.index}</h1>
+      <h2>Service number: {props.index}</h2>
       {props.user === 0 ? (
         <Container>
           <Row className="justify-content-md-center">
