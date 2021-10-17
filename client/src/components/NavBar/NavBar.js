@@ -12,7 +12,7 @@ const NavBar = ({ ...props }) => {
               Office Queue
             </div>
           </div>
-          <nav className="hidden md:flex space-x-5">
+          <nav className="hidden md:flex space-x-8">
             <NavLink
               exact
               to="/"

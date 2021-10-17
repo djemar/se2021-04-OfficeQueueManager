@@ -7,6 +7,7 @@ const QueueSet = ({ ...props }) => {
     user,
     userTicket,
     tickets,
+    setTicket,
     setDirty,
     setLoadingTicket,
     setUserTicket,
@@ -73,7 +74,7 @@ const QueueSet = ({ ...props }) => {
     currentServices = allServices; // user can see all the queues
   }
  */
-  const queue = services.map((item, index) => (
+  const queue = services.map((service, index) => (
     <Queue
       key={index}
       counter={counter}
@@ -84,9 +85,10 @@ const QueueSet = ({ ...props }) => {
       pairings={pairings}
       tickets={tickets}
       setTickets={tickets}
+      setTicket={setTicket}
       setDirty={setDirty}
       index={index}
-      item={item}
+      service={service}
     />
   ));
   return <div className="grid grid-cols-3 gap-4">{queue}</div>;

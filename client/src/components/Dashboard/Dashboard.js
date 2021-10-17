@@ -1,4 +1,4 @@
-import { Container } from 'react-bootstrap';
+import { Container, Card, Row } from 'react-bootstrap';
 import LoginModal from '../Login/LoginModal';
 import NavBar from '../NavBar/NavBar';
 import { QueueSet } from '../Queue';
@@ -12,13 +12,15 @@ import {
 } from 'react-router-dom';
 import Manage from '../Manage/Manage';
 import Board from '../Board/Board';
+import Ticket from '../Ticket/Ticket';
 
 const Dashboard = ({ ...props }) => {
-  const { user, name, loggedIn, login, logout } = props;
+  const { user, name, loggedIn, login, logout, loading } = props;
   const [dirty, setDirty] = useState(true);
   const [show, setShow] = useState(false);
   const [counter, setCounter] = useState(2);
   const [userTicket, setUserTicket] = useState(-1);
+  const [ticket, setTicket] = useState({});
   const [loadingTicket, setLoadingTicket] = useState(true);
   // const [mainHead, setMainHead] = useState(1);
   // const [mainTail, setMainTail] = useState();
@@ -31,30 +33,29 @@ const Dashboard = ({ ...props }) => {
   useEffect(() => {
     //useEffect è un hook che permette di usare i lyfecycle del component. Equivale alla componentDidMount, componentDidUpdate, componentWillUnmount.
     const getTickets = async () => {
-      const t = await API.getTickets();
-      console.log(t);
-      setTickets(t);
+      const tickets = await API.getTickets();
+      setTickets(tickets);
     };
 
     getTickets().then(() => {
       setDirty(false);
     });
-  }, [dirty, loggedIn]);
+  }, [dirty, loggedIn, loading]);
 
   useEffect(() => {
     //useEffect è un hook che permette di usare i lyfecycle del component. Equivale alla componentDidMount, componentDidUpdate, componentWillUnmount.
     const getServices = async () => {
-      const t = await API.getServices();
-      console.log(t);
-      setServices(t);
+      const services = await API.getServices();
+      setServices(services);
     };
 
     getServices().then(() => {
       setDirty(false);
     });
-  }, [dirty, loggedIn]);
+  }, [dirty, loggedIn, loading]);
 
-  console.log('logged:', loggedIn);
+  //console.log('tickets', tickets);
+
   return (
     <>
       <Router>
@@ -68,6 +69,7 @@ const Dashboard = ({ ...props }) => {
           <Switch>
             <Route path="/board">
               <Board
+                ticket={ticket}
                 counter={counter}
                 userTicket={userTicket}
                 tickets={tickets}
@@ -104,11 +106,20 @@ const Dashboard = ({ ...props }) => {
               </>
             </Route>
             <Route path="/">
+              <h2>Get Ticket</h2>
+              {userTicket !== -1 && !loadingTicket && !dirty && (
+                <Ticket
+                  ticket={ticket}
+                  status="Waiting"
+                  userTicket={userTicket}
+                />
+              )}
               <QueueSet
                 services={services}
                 counter={counter}
                 user={user}
                 userTicket={userTicket}
+                setTicket={setTicket}
                 tickets={tickets}
                 setDirty={setDirty}
                 setLoadingTicket={setLoadingTicket}

@@ -31,8 +31,7 @@ function App() {
   const logout = async () => {
     setLoading(true);
     await API.logout();
-
-    setLoggedIn(true);
+    setLoggedIn(false);
     setName('');
     setUser(0);
     setLoading(false);

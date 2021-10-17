@@ -1,5 +1,4 @@
-import { Button } from 'react-bootstrap';
-import QueueDisplay from './QueueDisplay/QueueDisplay';
+import { Button, Row, Card } from 'react-bootstrap';
 
 const Manage = ({ ...props }) => {
   const {
@@ -17,30 +16,39 @@ const Manage = ({ ...props }) => {
 
   return (
     <>
-      <h1>Welcome {name}!</h1>
-      <h2>Working at counter {counter}.</h2>
-      <Button
-        onClick={event => {
-          event.preventDefault();
-          // TODO: find next client according to the algo
-        }}
-        variant="warning"
-        size="lg"
+      <Row className="w-full flex justify-center text-center">
+        <p className="text-center flex justify-center items-center space-x-2">
+          <span className="h1 ">Welcome {name}! </span>
+          <span className="font-bold text-gray-500">
+            {user === 1 ? '(Officier)' : '(Admin)'}
+          </span>
+        </p>
+      </Row>
+      <Card
+        className={'border-none bg-white p-6 rounded-lg shadow-lg text-center'}
       >
-        Serve the next client.
-      </Button>
-      <hr />
-      <QueueDisplay
-        services={services}
-        counter={counter}
-        user={user}
-        userTicket={userTicket}
-        tickets={tickets}
-        setDirty={setDirty}
-        setLoadingTicket={setLoadingTicket}
-        setUserTicket={setUserTicket}
-        pairings={pairings}
-      />
+        <Card.Body>
+          <Row className="w-full flex justify-left text-center">
+            <p className="m-0 text-center flex justify-between items-center space-x-2">
+              <div className="space-x-4 flex items-center">
+                <span className="h3 m-0 p-0">Working at counter:</span>
+                <span className="text-xl badge bg-green-500">{counter}</span>
+              </div>
+
+              <Button
+                onClick={event => {
+                  event.preventDefault();
+                  // TODO: find next client according to the algo
+                }}
+                variant="warning"
+                size="lg"
+              >
+                Serve next client
+              </Button>
+            </p>
+          </Row>
+        </Card.Body>
+      </Card>
     </>
   );
 };
