@@ -29,6 +29,8 @@ function App() {
   // const [mainHead, setMainHead] = useState(1);
   // const [mainTail, setMainTail] = useState();
   const [tickets, setTickets] = useState([]);
+  const [services, setServices] = useState([]);
+  const [countersValues, setCountersValues] = useState([0, 0, 0, 0]);
 
   let pairings = []; // value in position i means that the i-th ticket is associated to the indicated service
 
@@ -80,6 +82,19 @@ function App() {
     });
   }, [dirty, loggedIn]);
 
+  useEffect(() => {
+    //useEffect è un hook che permette di usare i lyfecycle del component. Equivale alla componentDidMount, componentDidUpdate, componentWillUnmount.
+    const getServices = async () => {
+      const t = await API.getServices();
+      console.log(t);
+      setServices(t);
+    };
+
+    getServices().then(() => {
+      setDirty(false);
+    });
+  }, [dirty, loggedIn]);
+
   return (
     <Router>
       <Switch>
@@ -98,10 +113,18 @@ function App() {
                   Logout
                 </Button>
                 <hr />
-                <h1>Welcome {name}!</h1> <hr />
+                <h1>Welcome {name}!</h1>
+                <hr />
                 <Container fluid>
                   <h1>Working at counter {counter}.</h1>
-                  <Button variant="warning" size="lg">
+                  <Button
+                    onClick={event => {
+                      event.preventDefault();
+                      // TODO: find next client according to the algo
+                    }}
+                    variant="warning"
+                    size="lg"
+                  >
                     Serve the next client.
                   </Button>
                 </Container>
@@ -114,6 +137,7 @@ function App() {
                   setLoadingTicket={setLoadingTicket}
                   tickets={tickets}
                   setTickets={setTickets}
+                  services={services}
                   pairings={pairings}
                   setDirty={setDirty}
                 />
@@ -122,7 +146,7 @@ function App() {
               <Redirect to="/" />
             )
           }
-        ></Route>
+        />
         <Route
           path="/"
           render={() => (
@@ -143,7 +167,6 @@ function App() {
                     </Button>
                   </h1>
                   <hr />
-                  <strong>Queues branch</strong>
                   {!user ? (
                     <>
                       <h1>Counter: {counter}</h1>
@@ -179,10 +202,10 @@ function App() {
                     setLoadingTicket={setLoadingTicket}
                     tickets={tickets}
                     setTickets={setTickets}
+                    services={services}
                     pairings={pairings}
                     setDirty={setDirty}
                   />
-
                   <LoginModal
                     login={login}
                     show={show}
