@@ -72,7 +72,7 @@
     "semi": true,
     "singleQuote": true,
     "arrowParens": "avoid",
-    "endOfLine": "lf"
+    "endOfLine": "auto"
   },
   "devDependencies": {
     "autoprefixer": "^9.8.8",
