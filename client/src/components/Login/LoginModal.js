@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 function LoginModal(props) {
-  const [emailNoCase, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [emailNoCase, setEmail] = useState('s286329@studenti.polito.it');
+  const [password, setPassword] = useState('teamSE04');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleClose = () => {
