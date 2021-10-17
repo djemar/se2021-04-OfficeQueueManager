@@ -15,7 +15,6 @@ function QueueSet(props) {
   }
   return currentServices.map(index => (
     <Queue
-      index={index}
       counter={props.counter}
       user={props.user}
       userTicket={props.userTicket}

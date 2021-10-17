@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import QueueSet from './QueueSet.js';
+import QueueSet from './components/QueueSet.js';
 
 import { useState, useEffect } from 'react';
 import API from './API';
-import LoginModal from './LoginModal';
+import LoginModal from './components/LoginModal';
 import { Container, Button, Row } from 'react-bootstrap';
 import {
   BrowserRouter as Router,
