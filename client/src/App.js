@@ -29,10 +29,13 @@ function App() {
   };
 
   const logout = async () => {
+    setLoading(true);
     await API.logout();
-    setLoggedIn(false);
+
+    setLoggedIn(true);
     setName('');
     setUser(0);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -45,6 +48,7 @@ function App() {
         setLoading(false);
       } catch (err) {
         console.log(err.error);
+        setLoading(false);
       }
     };
     checkAuth();
