@@ -1,11 +1,45 @@
 import { useState } from 'react';
 import { Container, Button, Row, Col } from 'react-bootstrap';
-
+import API from '../API';
 function QueueSet(props) {
   /* This function is used to understand which queues are needed for this specific counter */
   //let [services, setServices] = useState([]);
 
-  const allServices = [1, 2, 3, 4, 5, 6];
+  const allServices = [
+    {
+      ID: 1,
+      Counter1: 1,
+      Counter2: 1,
+      Counter3: 1,
+      Counter4: 0,
+      Name: 'Bank account',
+    },
+    {
+      ID: 2,
+      Counter1: 1,
+      Counter2: 1,
+      Counter3: 0,
+      Counter4: 0,
+      Name: 'Bank account',
+    },
+    {
+      ID: 3,
+      Counter1: 1,
+      Counter2: 1,
+      Counter3: 0,
+      Counter4: 1,
+      Name: 'Postepay',
+    },
+    {
+      ID: 4,
+      Counter1: 1,
+      Counter2: 0,
+      Counter3: 1,
+      Counter4: 0,
+      Name: 'Postal savings',
+    },
+  ];
+
   /* todo: fetch to the DB in order to get the services of this props.counter */
   let currentServices = [1, 2];
   //setServices(tmp_services);
@@ -22,19 +56,16 @@ function QueueSet(props) {
       setUserTicket={props.setUserTicket}
       setLoadingTicket={props.setLoadingTicket}
       pairings={props.pairings}
-      mainHead={props.mainHead}
-      setMainHead={props.setMainHead}
-      mainTail={props.mainTail}
-      setMainTail={props.setMainTail}
+      tickets={props.tickets}
+      setTickets={props.tickets}
+      setDirty={props.setDirty}
+      index={index}
     />
   ));
 }
 
 // eslint-disable-next-line react/no-multi-comp
 function Queue(props) {
-  let [head, setHead] = useState(0);
-  let [tail, setTail] = useState(0);
-
   return (
     <>
       <h2>Service number: {props.index}</h2>
@@ -50,17 +81,32 @@ function Queue(props) {
                 <Button
                   onClick={event => {
                     event.preventDefault();
-                    props.setUserTicket(props.mainTail + 1);
-                    setTail(tail + 1);
-                    props.pairings.push(props.index);
-                    props.setMainTail(props.mainTail + 1);
-                    props.setLoadingTicket(false);
+                    let today = new Date();
+                    let date =
+                      today.getFullYear() +
+                      '-' +
+                      (today.getMonth() + 1) +
+                      '-' +
+                      today.getDate();
+                    let value = props.tickets.slice(-1)[0].Value;
+
+                    API.addTicket(value + 1, 0, props.index, date, 'not served')
+                      .then(() => {
+                        props.setDirty(true);
+                        props.pairings.push(props.index);
+                        props.setLoadingTicket(false);
+                        props.setUserTicket(value + 1);
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                        alert('Si è verificato un errore, riprova.');
+                      });
                   }}
                 >
-                  {!tail ? 'EMPTY' : tail}
+                  Get a ticket for this service
                 </Button>
               ) : (
-                <Button>{tail}</Button>
+                <strong>Ticket taken!</strong>
               )}
             </Col>
             <Col />
@@ -71,23 +117,29 @@ function Queue(props) {
           <Row className="justify-content-md-center">
             Officer button: displays top ticket
           </Row>
-          <Row>
+          {/*<Row>
             <Col />
             <Col>
               <Button
                 onClick={event => {
                   event.preventDefault();
-                  if (tail >= 1 && head < tail) {
-                    props.setMainHead(head + 1);
-                    setHead(head + 1);
+                  if (
+                    !props.tickets.slice(-1)[0] >= 1 &&
+                    !props.tickets.slice(0)[0] < !props.tickets.slice(0)[0]
+                  ) {
+                    setHead(props.tickets.slice(-1).Value + 1);
                   }
                 }}
               >
-                {!tail ? 'EMPTY' : head}
+                {!!props.tickets.slice(-1)
+                  ? 'EMPTY'
+                  : !props.tickets.slice(0).Value}
               </Button>
             </Col>
             <Col />
+
           </Row>
+          */}
         </Container>
       )}
     </>

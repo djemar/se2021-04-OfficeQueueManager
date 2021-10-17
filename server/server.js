@@ -203,6 +203,7 @@ app.get("/api/users/:id", (req, res) => {
 // Response body: empty
 app.post("/api/ticket", (req, res) => {
   const ticket = req.body;
+  console.log(ticket);
   dao
     .insertTicket(ticket)
     .then((result) => res.end())

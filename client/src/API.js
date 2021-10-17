@@ -86,8 +86,11 @@ async function getServices() {
   }
 }
 
-async function addTicket(ticket) {
+async function addTicket(value, userId, serviceId, date, state) {
   return new Promise((resolve, reject) => {
+    console.log('PROVA', serviceId);
+    let ticket = { value, userId, serviceId, date, state };
+    console.log(ticket);
     fetch(BASEURL + '/ticket', {
       method: 'POST',
       headers: {

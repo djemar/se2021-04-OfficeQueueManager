@@ -26,8 +26,9 @@ function App() {
   const [user, setUser] = useState(0); // 0 = user, 1 = officer, 2 = manager
   const [userTicket, setUserTicket] = useState(-1);
   const [loadingTicket, setLoadingTicket] = useState(true);
-  const [mainHead, setMainHead] = useState(1);
-  const [mainTail, setMainTail] = useState(5);
+  // const [mainHead, setMainHead] = useState(1);
+  // const [mainTail, setMainTail] = useState();
+  const [tickets, setTickets] = useState([]);
 
   let pairings = []; // value in position i means that the i-th ticket is associated to the indicated service
 
@@ -66,6 +67,19 @@ function App() {
     checkAuth();
   }, []);
 
+  useEffect(() => {
+    //useEffect è un hook che permette di usare i lyfecycle del component. Equivale alla componentDidMount, componentDidUpdate, componentWillUnmount.
+    const getTickets = async () => {
+      const t = await API.getTickets();
+      console.log(t);
+      setTickets(t);
+    };
+
+    getTickets().then(() => {
+      setDirty(false);
+    });
+  }, [dirty, loggedIn]);
+
   return (
     <Router>
       <Switch>
@@ -98,11 +112,10 @@ function App() {
                   userTicket={userTicket}
                   setUserTicket={setUserTicket}
                   setLoadingTicket={setLoadingTicket}
-                  mainHead={mainHead}
-                  setMainHead={setMainHead}
-                  mainTail={mainTail}
-                  setMainTail={setMainTail}
+                  tickets={tickets}
+                  setTickets={setTickets}
                   pairings={pairings}
+                  setDirty={setDirty}
                 />
               </div>
             ) : (
@@ -143,7 +156,7 @@ function App() {
                                 <strong>{userTicket}</strong>
                                 <br />
                                 The current ticket number being served is:{' '}
-                                <strong>{mainHead}</strong>
+                                <strong>{tickets[0].Value}</strong>
                                 <hr />
                               </h3>
                             </Container>
@@ -164,11 +177,10 @@ function App() {
                     userTicket={userTicket}
                     setUserTicket={setUserTicket}
                     setLoadingTicket={setLoadingTicket}
-                    mainHead={mainHead}
-                    setMainHead={setMainHead}
-                    mainTail={mainTail}
-                    setMainTail={setMainTail}
+                    tickets={tickets}
+                    setTickets={setTickets}
                     pairings={pairings}
+                    setDirty={setDirty}
                   />
 
                   <LoginModal
