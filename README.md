@@ -9,12 +9,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Run locally
 - Clone the project from [Github](https://github.com/djemar/se2021-04-OfficeQueueManager/tree/main/server)
 - Install node modules for server and client with `npm install`
-  - In the server folder start the server with `nodemon server.js`
-    - it could need to be installed locally on your pc with `npm install -g nodemon`
-- In the client folder run the react application with `npm start`<br>
+- In the ``/server`` folder start the server with `nodemon server.js`
+  it could need to be installed locally on your pc with `npm install -g nodemon`
+- In the ``/client`` folder run the react application with `npm start`<br>
   It runs the app in the development mode<br>
-  Open http://localhost:3000 to view it in the browser<br>
-  The server will be opened on http://localhost:3001. It is configured as the proxy for the client
+- Open http://localhost:3000 to view it in the browser<br>
+- The server will be opened on http://localhost:3001. It is configured as the proxy for the client
 
 
 ## React client application routes
@@ -64,13 +64,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Built with
 - [React](https://github.com/facebook/react) 
-- [React-Bootstrap](https://react-bootstrap.github.io/) 
+- [React-Bootstrap](https://react-bootstrap.github.io/)
+- [Bootstrap](https://github.com/twbs/bootstrap) 
 - [Express](https://github.com/expressjs/express) 
 - [Passport](http://www.passportjs.org/)
 - [SQLite](https://github.com/sqlite/sqlite) 
-- 
-
-Check out [package.json](https://github.com/djemar/se2021-04-OfficeQueueManager/blob/w1%230-Server/client/package.json)
+- [TailWindCSS](https://github.com/tailwindlabs/tailwindcss)
 
 ## Screenshot
 
@@ -79,7 +78,7 @@ Check out [package.json](https://github.com/djemar/se2021-04-OfficeQueueManager/
 
 ## Team
 - [Marino Diego](https://github.com/djemar)
-- [Cannarella Alessandro]()
+- [Cannarella Alessandro](https://github.com/cannarelladev)
 - [Cavallo Simone](https://github.com/LeSimo)
 - [Gourlet Katell]()
 - [Lanfranco Dario]()
