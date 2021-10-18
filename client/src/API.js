@@ -129,12 +129,15 @@ async function addTicket(value, userId, serviceId, date, state) {
 async function updateTicket(id) {
   return new Promise((resolve, reject) => {
     console.log('test update ticket', id);
+    //obj created for stringify the id value to be inserseted in body
+    let obj = new Object();
+    obj.id = id;
     fetch(BASEURL + '/updateticket', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(id),
+      body: JSON.stringify(obj),
     })
       .then(response => {
         if (response.ok) {

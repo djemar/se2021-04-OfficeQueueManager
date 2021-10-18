@@ -215,7 +215,6 @@ app.post("/api/ticket", (req, res) => {
 // Response body: empty
 app.post("/api/updateticket", (req, res) => {
   const id = req.body.id;
-  console.log(id);
   dao
     .updateTicket(id)
     .then((result) => res.end())
