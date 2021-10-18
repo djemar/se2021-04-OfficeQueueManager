@@ -124,7 +124,7 @@ exports.loadServices = function () {
 
 exports.loadTicketsByService = function () {
   return new Promise((resolve, reject) => {
-    const sql = "SELECT *  FROM TICKETS";
+    const sql = "SELECT *  FROM TICKETS WHERE State='not served'";
     db.all(sql, [], (err, rows) => {
       if (err) {
         reject(err);
@@ -193,22 +193,15 @@ exports.insertTicket = function (ticket) {
 
 exports.updateTicket = function (id) {
   return new Promise((resolve, reject) => {
-    const sql =
-      'UPDATE TICKETS SET State = "served" WHERE TICKETS.ID = ?';
-    db.run(
-      sql,
-      [
-        id
-      ],
-      function (err) {
-        if (err) {
-          console.log(err);
-          reject(err);
-        } else {
-          console.log("Modified successfully");
-          resolve(null);
-        }
+    const sql = 'UPDATE TICKETS SET State = "served" WHERE TICKETS.ID = ?';
+    db.run(sql, [id], function (err) {
+      if (err) {
+        console.log(err);
+        reject(err);
+      } else {
+        console.log("Modified successfully");
+        resolve(null);
       }
-    );
+    });
   });
 };

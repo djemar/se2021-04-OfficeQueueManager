@@ -1,15 +1,42 @@
 import { Button, Row, Card } from 'react-bootstrap';
 import Ticket from '../Ticket/Ticket';
+import { useEffect, useState } from 'react';
+import API from '../../API';
 
 const Board = ({ ...props }) => {
   const { ticket, counter, loadingTicket, tickets, userTicket } = props;
   const status = 'Waiting';
+  const [value, setValue] = useState();
+  console.log(tickets);
 
   const statusPerValue = {
     Waiting: { bg: 'bg-yellow-200', badge: 'bg-yellow-500' },
     Running: { bg: 'bg-green-200', badge: 'bg-green-500' },
     Expired: { bg: 'bg-gray-200', badge: 'bg-gray-500' },
   };
+
+  useEffect(() => {
+    //useEffect è un hook che permette di usare i lyfecycle del component. Equivale alla componentDidMount, componentDidUpdate, componentWillUnmount.
+    const evaluate = async () => {
+      let tick = Object.values(props.groupedTickets);
+      let dim = 0;
+      let longestQueue;
+
+      for (let i = 0; i < tick.length; i++) {
+        if (tick[i].length > dim) {
+          dim = tick[i].length;
+          longestQueue = tick[i];
+        }
+      }
+      setValue(longestQueue[0].Value);
+    };
+
+    evaluate().then(() => {
+      props.setDirty(false);
+    });
+  }, [value, props.dirty]);
+
+  function evaluate() {}
 
   return (
     <>
@@ -28,9 +55,7 @@ const Board = ({ ...props }) => {
               {tickets.length !== 0 && (
                 <div className="space-x-4 flex items-center">
                   <span className="h3 m-0 p-0">We are serving:</span>
-                  <span className="text-xl badge bg-blue-500">
-                    {tickets[0].Value}
-                  </span>
+                  <span className="text-xl badge bg-blue-500">{value}</span>
                 </div>
               )}
               <div className="space-x-4 flex items-center">

@@ -44,7 +44,6 @@ async function getTicketsByServiceId() {
   const response = await fetch(BASEURL + '/ticketsbyservices');
   const tickets = await response.json();
   if (response.ok) {
-    console.log(tickets);
     return tickets;
   } else {
     console.log('Errore');

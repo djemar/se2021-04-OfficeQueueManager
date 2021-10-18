@@ -1,4 +1,5 @@
 import { Button, Row, Card } from 'react-bootstrap';
+import API from '../../API';
 
 const Manage = ({ ...props }) => {
   const {
@@ -14,13 +15,34 @@ const Manage = ({ ...props }) => {
     name,
   } = props;
 
+  function handleClick() {
+    let tick = Object.values(props.groupedTickets);
+    let dim = 0;
+    let longestQueue;
+
+    for (let i = 0; i < tick.length; i++) {
+      if (tick[i].length > dim) {
+        dim = tick[i].length;
+        longestQueue = tick[i];
+      }
+    }
+
+    const updateTicket = async () => {
+      await API.updateTicket(longestQueue[0].ID);
+    };
+    updateTicket().then(() => {
+      setDirty(true);
+    });
+    alert('Ticket removed from the queue: Ticket n°' + longestQueue[0].Value);
+  }
+
   return (
     <>
       <Row className="w-full flex justify-center text-center">
         <p className="text-center flex justify-center items-center space-x-2">
           <span className="h1 ">Welcome {name}! </span>
           <span className="font-bold text-gray-500">
-            {user === 1 ? '(Officier)' : '(Admin)'}
+            {user === 1 ? '(Officer)' : '(Admin)'}
           </span>
         </p>
       </Row>
@@ -39,6 +61,7 @@ const Manage = ({ ...props }) => {
                 onClick={event => {
                   event.preventDefault();
                   // TODO: find next client according to the algo
+                  handleClick();
                 }}
                 variant="warning"
                 size="lg"

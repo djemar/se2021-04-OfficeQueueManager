@@ -27,7 +27,7 @@ const Dashboard = ({ ...props }) => {
   const [tickets, setTickets] = useState([]);
   const [services, setServices] = useState([]);
   const [countersValues, setCountersValues] = useState([0, 0, 0, 0]);
-
+  const [groupedTickets, setGroupedTickets] = useState([]);
   let pairings = [];
 
   useEffect(() => {
@@ -36,6 +36,14 @@ const Dashboard = ({ ...props }) => {
       const tickets = await API.getTickets();
       setTickets(tickets);
     };
+
+    const getGroupedTickets = async () => {
+      const gTickets = await API.getTicketsByServiceId();
+      setGroupedTickets(gTickets);
+    };
+    getGroupedTickets().then(() => {
+      setDirty(false);
+    });
 
     getTickets().then(() => {
       setDirty(false);
@@ -74,6 +82,9 @@ const Dashboard = ({ ...props }) => {
                 userTicket={userTicket}
                 tickets={tickets}
                 loadingTicket={loadingTicket}
+                groupedTickets={groupedTickets}
+                dirty={dirty}
+                setDirty={setDirty}
               />
             </Route>
             <Route path="/manage">
@@ -90,6 +101,7 @@ const Dashboard = ({ ...props }) => {
                     setLoadingTicket={setLoadingTicket}
                     setUserTicket={setUserTicket}
                     pairings={pairings}
+                    groupedTickets={groupedTickets}
                   />
                 ) : (
                   <Redirect to="/" />
