@@ -1,4 +1,4 @@
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Row } from 'react-bootstrap';
 import API from '../../../API';
 
 export const Queue = ({ ...props }) => {
@@ -47,18 +47,28 @@ export const Queue = ({ ...props }) => {
   };
   return (
     <Card
-      className={'border-none bg-white p-6 rounded-lg shadow-lg text-center'}
+      className={
+        'border-none bg-white p-6 rounded-lg shadow-lg text-center p-0'
+      }
     >
+      <Card.Header className="bg-blue-500 border-0 flex text-2xl justify-start items-center gap-4">
+        <span className="badge bg-white text-blue-500">{index + 1}</span>
+        <h2 class="text-2xl font-bold text-white m-0">{service.Name}</h2>
+      </Card.Header>
       <Card.Body>
-        <Card.Title className="flex justify-center items-center gap-4">
-          <span className="badge bg-green-500">{index + 1}</span>
-          <h2 class="text-2xl font-bold text-gray-800 m-0">{service.Name}</h2>
-        </Card.Title>
-        <Card.Text>
+        <Row className="w-full flex justify-center text-center mb-4">
+          <div className="space-x-4 flex justify-center items-center">
+            <span className="text-gray-700 font-medium m-0 p-0">
+              Waiting NOW:
+            </span>
+            <span className="badge bg-gray-500">10</span>
+          </div>
+        </Row>
+        {/* <Card.Text>
           <p class="text-gray-700">
             User button: displays number of people waiting on this service
           </p>
-        </Card.Text>
+        </Card.Text> */}
 
         <Button disabled={userTicket !== -1} onClick={getTicket}>
           {userTicket === -1 ? 'Get a ticket' : 'Ticket already taken'}
