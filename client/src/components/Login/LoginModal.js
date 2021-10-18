@@ -25,7 +25,7 @@ function LoginModal(props) {
       let success = props.login(credentials);
       if (success) {
         handleClose();
-        <Redirect to="/officer"></Redirect>;
+        <Redirect to="/manage"></Redirect>;
       }
     } else {
       setErrorMessage('Password should be at least 6 characters.');

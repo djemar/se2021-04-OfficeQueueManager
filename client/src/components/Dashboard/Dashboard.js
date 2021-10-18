@@ -107,6 +107,7 @@ const Dashboard = ({ ...props }) => {
             </Route>
             <Route path="/">
               <h2>Get Ticket</h2>
+
               {userTicket !== -1 && !loadingTicket && !dirty && (
                 <Ticket
                   ticket={ticket}
