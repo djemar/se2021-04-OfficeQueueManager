@@ -190,3 +190,25 @@ exports.insertTicket = function (ticket) {
     );
   });
 };
+
+exports.updateTicket = function (id) {
+  return new Promise((resolve, reject) => {
+    const sql =
+      'UPDATE TICKETS SET State = "served" WHERE TICKETS.ID = ?';
+    db.run(
+      sql,
+      [
+        id
+      ],
+      function (err) {
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          console.log("Modified successfully");
+          resolve(null);
+        }
+      }
+    );
+  });
+};

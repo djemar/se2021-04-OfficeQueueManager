@@ -210,6 +210,18 @@ app.post("/api/ticket", (req, res) => {
     .catch((err) => res.status(503).json(dbErrorObj));
 });
 
+// POST /updateticket
+// Request body: ID of the ticket to be updated
+// Response body: empty
+app.post("/api/updateticket", (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+  dao
+    .updateTicket(id)
+    .then((result) => res.end())
+    .catch((err) => res.status(503).json(dbErrorObj));
+});
+
 app.listen(port, () =>
   console.log(`Server app listening at http://localhost:${port}`)
 );

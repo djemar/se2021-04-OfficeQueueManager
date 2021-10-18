@@ -126,6 +126,44 @@ async function addTicket(value, userId, serviceId, date, state) {
   });
 }
 
+async function updateTicket(id) {
+  return new Promise((resolve, reject) => {
+    console.log('test update ticket', id);
+    fetch(BASEURL + '/updateticket', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(id),
+    })
+      .then(response => {
+        if (response.ok) {
+          resolve(null);
+        } else {
+          //analyze the cause of error
+          response
+            .json()
+            .then(obj => {
+              reject(obj);
+            }) //error message in the response body
+            .catch(err => {
+              reject({
+                errors: [
+                  {
+                    param: 'Application',
+                    masg: 'Cannot parse server response',
+                  },
+                ],
+              });
+            });
+        }
+      })
+      .catch(err => {
+        reject({ errors: [{ param: 'Server', msg: 'Cannot communicate' }] });
+      });
+  });
+}
+
 const API = {
   login,
   logout,
@@ -135,6 +173,7 @@ const API = {
   getTickets,
   getServices,
   addTicket,
+  updateTicket,
 };
 
 export default API;

@@ -19,7 +19,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## React client application routes
 - Route `/` : used for main page
-- Route `/officer` : page that contains the officer's components
+- Route `/board` : 
+- Route `/manage` : page that contains the officer's components
+- Route `/stats` : page fot statistics (not implemented)
 
 ## REST API Server
 
@@ -50,6 +52,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - POST `/api/ticket`
     - Request parameters : object describing a ticket
     - Response parameters : none
+- POST `/api/updateticket`
+    - Request parameters : id of the ticket to be updated
+    - Response parameters : none
 
 ## Server Database
 - Table `SERVICES` - it contains id, counter1, counter2, counter3, counter4
@@ -75,7 +80,7 @@ Check out [package.json](https://github.com/djemar/se2021-04-OfficeQueueManager/
 ## Team
 - [Marino Diego](https://github.com/djemar)
 - [Cannarella Alessandro]()
-- [Cavallo Simone]()
+- [Cavallo Simone](https://github.com/LeSimo)
 - [Gourlet Katell]()
 - [Lanfranco Dario]()
 - [Acquaro Claudio]()
