@@ -80,7 +80,7 @@ exports.loadUsers = function () {
 
 exports.loadTickets = function () {
   return new Promise((resolve, reject) => {
-    const sql = "SELECT *  FROM TICKETS";
+    const sql = 'SELECT *  FROM TICKETS WHERE State = "not served"';
     db.all(sql, [], (err, rows) => {
       if (err) {
         reject(err);
