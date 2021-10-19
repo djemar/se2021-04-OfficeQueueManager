@@ -58,10 +58,10 @@ export const Queue = ({ ...props }) => {
       <Card.Body>
         <Row className="w-full flex justify-center text-center mb-4">
           <div className="space-x-4 flex justify-center items-center">
-            <span className="text-gray-700 font-medium m-0 p-0">
+            {/* <span className="text-gray-700 font-medium m-0 p-0">
               Waiting NOW:
             </span>
-            <span className="badge bg-gray-500">10</span>
+            <span className="badge bg-gray-500">10</span> */}
           </div>
         </Row>
         {/* <Card.Text>
