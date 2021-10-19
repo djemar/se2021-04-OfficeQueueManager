@@ -59,7 +59,7 @@ const Board = ({ ...props }) => {
                 </div>
               )}
               <div className="space-x-4 flex items-center">
-                <span className="h3 m-0 p-0">Queue:</span>
+                <span className="h3 m-0 p-0">Counter:</span>
                 <span className="text-xl badge bg-gray-500">{counter}</span>
               </div>
             </p>
