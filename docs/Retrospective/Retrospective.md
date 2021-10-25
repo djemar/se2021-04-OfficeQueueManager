@@ -21,9 +21,9 @@ _Definition of Done:_
 <br>
 
 - Number of stories committed vs done
-  - 3 stories commited - 1/0 story done
+  - 3 stories commited - 0 story done
 - Total points committed vs done
-  - 14 points - 8/0 points done
+  - 14 points - 0 points done
 - Nr of hours planned vs spent (as a team)
   - 32h 25m vs 42h 55m
 
