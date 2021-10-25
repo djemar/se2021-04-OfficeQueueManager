@@ -1,33 +1,30 @@
-# TEMPLATE FOR RETROSPECTIVE (Team 04)
+# WEEK1 RETROSPECTIVE (Team 04)
 
-The retrospective should include _at least_ the following
-sections:
-
-- [process measures](#process-measures)
-- [quality measures](#quality-measures)
-- [general assessment](#assessment)
+- [Process measures](#process-measures)
+- [Quality measures](#quality-measures)
+- [General assessment](#assessment)
 
 ## PROCESS MEASURES
 
 ### Macro statistics
 
-_Definition of Done:_
+```
+Our definition of Done:
 
 - Unit Tests passing
 - Code review completed
 - Code present on VCS
 - End-to-End tests performed
-
-<br>
+```
 
 - Number of stories committed vs done
   - 3 stories commited - 0 story done
 - Total points committed vs done
   - 14 points - 0 points done
 - Nr of hours planned vs spent (as a team)
-  - 32h 25m vs 42h 55m
+  - Planned 32h 25m - Spent 42h 55m
 
-### Detailed statistics \*
+### Detailed statistics
 
 | Story   | # Tasks | Points | Hours est. | Hours actual |
 | ------- | ------- | ------ | ---------- | ------------ |
