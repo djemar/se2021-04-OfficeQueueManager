@@ -14,7 +14,7 @@ const LocalStrategy = require("passport-local").Strategy; // username and passwo
 const session = require("express-session"); // enable sessions
 
 const app = express();
-const port = 3001;
+const port = 5000;
 
 // Set-up logging
 app.use(morgan("tiny"));
